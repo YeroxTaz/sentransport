@@ -54,18 +54,29 @@ const lignes = [
       setLigneSelectionnee(ligne);
     }
   }
+  const [nbRecherches, setNbRecherches] = useState(0);
+
+function handleRecherche(valeur) {
+  setRecherche(valeur);
+  setNbRecherches(nbRecherches + 1);
+}
 
   return (
     <div className="App">
       <Header />
+      <p className="compteur-recherche">
+  Vous avez effectue {nbRecherches} recherche(s)
+</p>
       <main className="contenu">
-        <Recherche valeur={recherche}
-          onChange={setRecherche} />
+        <Recherche valeur={recherche} onChange={handleRecherche} />
         <p className="resultat-recherche">
           {lignesFiltrees.length} ligne
           {lignesFiltrees.length > 1 ? 's' : ''} trouvee
           {lignesFiltrees.length > 1 ? 's' : ''}
         </p>
+        {lignesFiltrees.length === 0 && (
+  <p className="aucun-resultat">Aucune ligne trouvee.</p>
+)}
         {lignesFiltrees.map(ligne => (
           <LigneBus
             key={ligne.id}
